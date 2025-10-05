@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Responsive Vega-Lite Charts</title>
+
+  <!-- Vega / Vega-Lite / Vega-Embed -->
+  <script src="https://cdn.jsdelivr.net/npm/vega@5.20.2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.1.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.17.0"></script>
+
+  <!-- Pure.css -->
+  <link rel="stylesheet"
+        href="https://unpkg.com/purecss@2.0.3/build/pure-min.css"
+        integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ"
+        crossorigin="anonymous">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background: #fafafa;
+      margin: 0;
+      padding: 30px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .pure-g {
+      margin-bottom: 40px;
+    }
+
+    .vis-container {
+      width: 100%;
+      height: 60vh;
+      min-height: 350px;
+      background: none;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    .vis-container .vega-embed,
+    .vis-container .vega-embed > div {
+      width: 100% !important;
+      height: 100% !important;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.9em;
+      color: #666;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>FIT3179 Week 10 Homework - Task 2</h1>
+
+  <!-- Two-column layout -->
+  <div class="pure-g">
+    <div class="pure-u-1 pure-u-md-1-2">
+      <div id="vis1" class="vis-container"></div>
+    </div>
+    <div class="pure-u-1 pure-u-md-1-2">
+      <div id="vis2" class="vis-container"></div>
+    </div>
+  </div>
+
+  <footer>
+    FIT3179 Week 10 Homework - Task 2
+  </footer>
+
+  <script>
+    async function loadChart(divId, specPath) {
+      const response = await fetch(specPath);
+      const spec = await response.json();
+
+      spec.autosize = { type: "fit", contains: "padding" };
+
+      vegaEmbed(divId, spec, { actions: false, renderer: 'svg' })
+        .catch(console.error);
+    }
+
+    loadChart('#vis1', 'js/bubble_chart.vg.json');
+    loadChart('#vis2', 'js/map_with_graticules.vg.json');
+  </script>
+</body>
+</html>
