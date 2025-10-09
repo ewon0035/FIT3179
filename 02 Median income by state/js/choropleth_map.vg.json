@@ -1,0 +1,42 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 900,
+  "height": 800,
+  "title": "Median Income by State/Territory in Australia (2022)",
+  "projection": {"type": "mercator", "center": [133, -28], "scale": 1000},
+  "layer": [
+    {
+      "data": {
+        "url": "js/australia.topojson",
+        "format": {"type": "topojson", "feature": "STE_2021_AUST_GDA2020"}
+      },
+      "transform": [
+        {
+          "lookup": "properties.STE_NAME21",
+          "from": {
+            "data": {"url": "data/data.csv"},
+            "key": "State",
+            "fields": ["Median Income"]
+          }
+        },
+        {
+          "calculate": "toNumber(replace(datum['Median Income'], ',', ''))",
+          "as": "median_income_num"
+        }
+      ],
+      "mark": {"type": "geoshape", "stroke": "white", "strokeWidth": 0.6},
+      "encoding": {
+        "color": {
+          "field": "median_income_num",
+          "type": "quantitative",
+          "title": "Median Income (AUD)",
+          "scale": {"scheme": "purples"}
+        },
+        "tooltip": [
+          {"field": "properties.STE_NAME21", "title": "State/Territory"},
+          {"field": "Median Income", "title": "Median Income (AUD)"}
+        ]
+      }
+    }
+  ]
+}

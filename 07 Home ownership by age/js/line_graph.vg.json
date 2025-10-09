@@ -1,0 +1,95 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Australia Home Ownership By Age Group and Birth Cohort",
+  "width": 1200,
+  "height": 500,
+  "data": {
+    "url": "data/data.csv"
+  },
+  "transform": [
+    {
+      "fold": [
+        "Born 1947-1951",
+        "Born 1952-1956",
+        "Born 1957-1961",
+        "Born 1962-1966",
+        "Born 1967-1971",
+        "Born 1972-1976",
+        "Born 1977-1981",
+        "Born 1982-1986",
+        "Born 1987-1991",
+        "Born 1992-1996"
+      ],
+      "as": ["Birth cohort", "Percent"]
+    },
+    {
+      "calculate": "replace(datum.Percent, '%', '')",
+      "as": "PercentValue"
+    },
+    {
+      "calculate": "toNumber(datum.PercentValue)",
+      "as": "PercentNum"
+    },
+    {
+      "calculate": "indexof(['25-29','30-34','35-39','40-44','45-49','50-54','55-59','60-64','65-69','70-74'], datum['age groups'])",
+      "as": "AgeOrder"
+    },
+    {
+      "filter": "isValid(datum.PercentNum)"
+    }
+  ],
+  "layer": [
+    {
+      "mark": {"type": "line", "point": true},
+      "encoding": {
+        "x": {
+          "field": "age groups",
+          "type": "ordinal",
+          "title": "Age group",
+          "axis": {"labelAngle": 0}
+        },
+        "y": {
+          "field": "PercentNum",
+          "type": "quantitative",
+          "title": "Percent"
+        },
+        "color": {
+          "field": "Birth cohort",
+          "type": "nominal",
+          "title": "Birth cohort"
+        },
+        "tooltip": [
+          {"field": "age groups", "title": "Age group"},
+          {"field": "Birth cohort", "title": "Birth cohort"},
+          {"field": "PercentNum", "title": "Percent", "format": ".1f"}
+        ]
+      }
+    },
+    {
+      "transform": [
+        {
+          "joinaggregate": [
+            {"op": "max", "field": "AgeOrder", "as": "maxAge"}
+          ],
+          "groupby": ["Birth cohort"]
+        },
+        {
+          "filter": "datum.AgeOrder === datum.maxAge"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": -15,
+        "dy": 15,
+        "fontSize": 11
+      },
+      "encoding": {
+        "x": {"field": "age groups", "type": "ordinal"},
+        "y": {"field": "PercentNum", "type": "quantitative"},
+        "text": {"field": "Birth cohort"},
+        "color": {"field": "Birth cohort", "type": "nominal"}
+      }
+    }
+  ]
+}

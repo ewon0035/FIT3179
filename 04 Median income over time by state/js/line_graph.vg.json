@@ -1,0 +1,104 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Median Weekly Income Over Time by Australian State/Territory",
+  "width": 900,
+  "height": 500,
+  "data": {
+    "url": "data/data.csv"
+  },
+  "transform": [
+    {
+      "fold": [
+        "New South Wales",
+        "Victoria",
+        "Queensland",
+        "South Australia",
+        "Western Australia",
+        "Tasmania",
+        "Northern Territory",
+        "Australian Capital Territory"
+      ],
+      "as": ["State", "Median Income"]
+    },
+    {
+      "calculate": "toDate(datum[''])",
+      "as": "Date"
+    },
+    {
+      "calculate": "replace(replace(replace(datum['Median Income'], ',', ''), '\"', ''), ' ', '')",
+      "as": "CleanIncome"
+    },
+    {
+      "calculate": "datum['CleanIncome'] == '-' ? null : toNumber(datum['CleanIncome'])",
+      "as": "MedianIncomeNum"
+    },
+    {
+      "filter": "datum.MedianIncomeNum != null"
+    }
+  ],
+  "layer": [
+    {
+      "mark": {
+        "type": "line",
+        "interpolate": "monotone"
+      },
+      "encoding": {
+        "x": {"field": "Date", "type": "temporal", "title": "Year", "axis": {"format": "%Y", "labelAngle": 0}},
+        "y": {"field": "MedianIncomeNum", "type": "quantitative", "title": "Median Weekly Income (AUD)"},
+        "color": {
+          "field": "State",
+          "type": "nominal",
+          "title": "State/Territory",
+          "scale": {
+            "domain": [
+              "New South Wales",
+              "Victoria",
+              "Queensland",
+              "South Australia",
+              "Western Australia",
+              "Tasmania",
+              "Northern Territory",
+              "Australian Capital Territory"
+            ],
+            "range": [
+              "#1f77b4", "#ff7f0e", "#9467bd", "#8c564b",
+              "#e377c2", "#7f7f7f", "#bcbd22", "#17becf"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "mark": {"type": "point", "filled": true},
+      "encoding": {
+        "x": {"field": "Date", "type": "temporal"},
+        "y": {"field": "MedianIncomeNum", "type": "quantitative"},
+        "color": {
+          "field": "State",
+          "type": "nominal",
+          "scale": {
+            "domain": [
+              "New South Wales",
+              "Victoria",
+              "Queensland",
+              "South Australia",
+              "Western Australia",
+              "Tasmania",
+              "Northern Territory",
+              "Australian Capital Territory"
+            ],
+            "range": [
+              "#1f77b4", "#ff7f0e", "#9467bd", "#8c564b",
+              "#e377c2", "#7f7f7f", "#bcbd22", "#17becf"
+            ]
+          }
+        },
+        "tooltip": [
+          {"field": "State", "type": "nominal"},
+          {"field": "Date", "type": "temporal", "title": "Year", "format": "%Y"},
+          {"field": "MedianIncomeNum", "type": "quantitative", "title": "Median Income (AUD)"}
+        ]
+      }
+    }
+  ]
+}

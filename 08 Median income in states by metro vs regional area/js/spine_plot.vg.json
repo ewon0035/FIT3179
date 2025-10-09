@@ -1,0 +1,82 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Metro vs Regional Median Income by State (2022)",
+    "anchor": "middle",
+    "fontSize": 16,
+    "offset": 20
+  },
+  "description": "Horizontal diverging spine chart: metro vs regional median income",
+  "width": 400,
+  "height": 300,
+  "data": {
+    "url": "data/data.csv"
+  },
+  "transform": [
+    {
+      "calculate": "datum['metro or regional'] === 'Rest of NSW' || datum['metro or regional'] === 'Rest of Vic.' || datum['metro or regional'] === 'Rest of Qld' || datum['metro or regional'] === 'Rest of SA' || datum['metro or regional'] === 'Rest of WA' || datum['metro or regional'] === 'Rest of Tas.' || datum['metro or regional'] === 'Rest of NT' ? -datum['median income 2022'] : datum['median income 2022']",
+      "as": "IncomeSigned"
+    }
+  ],
+  "layer": [
+    {
+      "mark": "bar",
+      "encoding": {
+        "y": {
+          "field": "state",
+          "type": "nominal",
+          "axis": {"title": "State"}
+        },
+        "x": {
+          "field": "IncomeSigned",
+          "type": "quantitative",
+          "axis": {
+            "title": "Median Income 2022",
+            "format": "s",
+            "grid": true,
+            "labelExpr": "abs(datum.value)"
+          },
+          "scale": {
+            "domain": [-80000, 80000]
+          }
+        },
+        "color": {
+          "field": "metro or regional",
+          "type": "nominal",
+          "scale": {
+            "domain": [
+              "Greater Sydney", "Greater Melbourne", "Greater Brisbane", 
+              "Greater Adelaide", "Greater Perth", "Greater Hobart", "Greater Darwin",
+              "Rest of NSW", "Rest of Vic.", "Rest of Qld", 
+              "Rest of SA", "Rest of WA", "Rest of Tas.", "Rest of NT"
+            ],
+            "range": [
+              "#A8D5E2", "#A8D5E2", "#A8D5E2", "#A8D5E2", "#A8D5E2", "#A8D5E2", "#A8D5E2",
+              "#FFB5A7", "#FFB5A7", "#FFB5A7", "#FFB5A7", "#FFB5A7", "#FFB5A7", "#FFB5A7"
+            ]
+          },
+          "legend": null
+        },
+        "tooltip": [
+          {"field": "state", "type": "nominal"},
+          {"field": "metro or regional", "type": "nominal"},
+          {"field": "median income 2022", "type": "quantitative", "title": "Median Income"}
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "center",
+        "fontSize": 12,
+        "fontWeight": "bold",
+        "dy": -15
+      },
+      "encoding": {
+        "x": {"datum": 0},
+        "y": {"value": 0},
+        "text": {"value": "← Regional     Metro →"}
+      }
+    }
+  ]
+}

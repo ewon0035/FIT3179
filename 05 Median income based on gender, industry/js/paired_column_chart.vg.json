@@ -1,0 +1,61 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Australian Median Hourly Income by Industry and Gender (2024)",
+  "width": 900,
+  "height": 500,
+  "data": {
+    "url": "data/data.csv"
+  },
+  "transform": [
+    {
+      "fold": ["Male", "Female"],
+      "as": ["Gender", "Income"]
+    }
+  ],
+  "mark": {
+    "type": "bar",
+    "tooltip": true
+  },
+  "encoding": {
+    "x": {
+      "field": "Industry",
+      "type": "nominal",
+      "axis": {
+        "labelAngle": -45,
+        "labelAlign": "right",
+        "labelLimit": 250,
+        "labelPadding": 2
+      }
+    },
+    "xOffset": {
+      "field": "Gender",
+      "type": "nominal",
+      "scale": {"domain": ["Male", "Female"]}
+    },
+    "y": {
+      "field": "Income",
+      "type": "quantitative",
+      "title": "Median Hourly Income ($)"
+    },
+    "color": {
+      "field": "Gender",
+      "type": "nominal",
+      "scale": {
+        "domain": ["Male", "Female"],
+        "range": ["#a3c4f3", "#fbb4ae"]
+      }
+    }
+  },
+  "config": {
+    "view": {"stroke": "transparent"},
+    "bar": {
+      "cornerRadiusTopLeft": 3,
+      "cornerRadiusTopRight": 3
+    },
+    "axis": {
+      "grid": true,
+      "labelFontSize": 12,
+      "titleFontSize": 13
+    }
+  }
+}

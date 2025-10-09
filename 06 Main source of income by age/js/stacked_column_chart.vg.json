@@ -1,0 +1,82 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Australian Sources of Income by Age Group",
+  "width": 850,
+  "height": 500,
+  "data": {
+    "url": "data/data.csv"
+  },
+  "transform": [
+    {
+      "fold": [
+        "Nil or negative income",
+        "Employee wages and salary",
+        "Government benefits and allowances",
+        "Own unincorporated business income",
+        "Superannuation income",
+        "Investment income",
+        "Other income"
+      ],
+      "as": ["Income Source", "Percentage"]
+    },
+    {
+      "calculate": "datum['']",
+      "as": "Age Group"
+    },
+    {
+      "calculate": "toNumber(datum['Percentage'])",
+      "as": "PercentValue"
+    }
+  ],
+  "mark": {"type": "bar"},
+  "encoding": {
+    "x": {
+      "field": "Age Group",
+      "type": "nominal",
+      "title": "Age Group",
+      "sort": [
+        "15-19 years",
+        "20-24 years",
+        "25-34 years",
+        "35-44 years",
+        "45-54 years",
+        "55-64 years",
+        "65-74 years",
+        "75-84 years",
+        "85 years and over"
+      ]
+    },
+    "y": {
+      "field": "PercentValue",
+      "type": "quantitative",
+      "title": "Percentage of People (%)",
+      "stack": "normalize"
+    },
+    "color": {
+      "field": "Income Source",
+      "type": "nominal",
+      "title": "Income Source",
+      "scale": {
+        "range": [
+          "#aec7e8",
+          "#ffbb78",
+          "#c5b0d5",
+          "#c49c94",
+          "#f7b6d2",
+          "#c7c7c7",
+          "#9edae5" 
+        ]
+      },
+      "legend": {"orient": "bottom"}
+    },
+    "tooltip": [
+      {"field": "Age Group"},
+      {"field": "Income Source"},
+      {"field": "PercentValue", "title": "Percentage", "format": ".1f"}
+    ]
+  },
+  "config": {
+    "view": {"stroke": "transparent"},
+    "axis": {"grid": true}
+  }
+}
