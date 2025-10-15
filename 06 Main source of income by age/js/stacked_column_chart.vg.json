@@ -4,7 +4,7 @@
   "width": 850,
   "height": 500,
   "data": {
-    "url": "data/data.csv"
+    "url": "https://raw.githubusercontent.com/ewon0035/FIT3179/refs/heads/data_visualisation_ii/06%20Main%20source%20of%20income%20by%20age/data/data.csv"
   },
   "transform": [
     {
@@ -28,54 +28,73 @@
       "as": "PercentValue"
     }
   ],
-  "mark": {"type": "bar"},
-  "encoding": {
-    "x": {
-      "field": "Age Group",
-      "type": "nominal",
-      "title": "Age Group",
-      "sort": [
-        "15-19 years",
-        "20-24 years",
-        "25-34 years",
-        "35-44 years",
-        "45-54 years",
-        "55-64 years",
-        "65-74 years",
-        "75-84 years",
-        "85 years and over"
-      ]
-    },
-    "y": {
-      "field": "PercentValue",
-      "type": "quantitative",
-      "title": "Percentage of People (%)",
-      "stack": "normalize"
-    },
-    "color": {
-      "field": "Income Source",
-      "type": "nominal",
-      "title": "Income Source",
-      "scale": {
-        "range": [
-          "#aec7e8",
-          "#ffbb78",
-          "#c5b0d5",
-          "#c49c94",
-          "#f7b6d2",
-          "#c7c7c7",
-          "#9edae5" 
+  "layer": [
+    {
+      "mark": "bar",
+      "encoding": {
+        "x": {
+          "field": "Age Group",
+          "type": "nominal",
+          "title": "Age Group",
+          "axis": {"labelAngle": 0},
+          "sort": [
+            "15-19 years",
+            "20-24 years",
+            "25-34 years",
+            "35-44 years",
+            "45-54 years",
+            "55-64 years",
+            "65-74 years",
+            "75-84 years",
+            "85 years and over"
+          ]
+        },
+        "y": {
+          "field": "PercentValue",
+          "type": "quantitative",
+          "title": "Percentage of People (%)",
+          "stack": "normalize"
+        },
+        "color": {
+          "field": "Income Source",
+          "type": "nominal",
+          "title": "Income Source",
+          "scale": {
+            "domain": [
+              "Nil or negative income",
+              "Employee wages and salary",
+              "Government benefits and allowances",
+              "Own unincorporated business income",
+              "Superannuation income",
+              "Investment income",
+              "Other income"
+            ],
+            "range": [
+              "#aec7e8",
+              "#ffbb78",
+              "#c5b0d5",
+              "#c49c94",
+              "#f7b6d2",
+              "#c7c7c7",
+              "#9edae5"
+            ]
+          },
+          "legend": {
+            "orient": "bottom",
+            "columns": 4,
+            "labelLimit": 500
+          }
+        },
+        "tooltip": [
+          {"field": "Age Group"},
+          {"field": "Income Source"},
+          {"field": "PercentValue", "title": "Percentage", "format": ".1f"}
         ]
-      },
-      "legend": {"orient": "bottom"}
-    },
-    "tooltip": [
-      {"field": "Age Group"},
-      {"field": "Income Source"},
-      {"field": "PercentValue", "title": "Percentage", "format": ".1f"}
-    ]
-  },
+      }
+    }
+  ],
   "config": {
+    "background": "transparent",
     "view": {"stroke": "transparent"},
     "axis": {"grid": true}
   }

@@ -3,8 +3,9 @@
   "width": 800,
   "height": 600,
   "title": "Median Income by Statistical Area Level 4 (2021-2022)",
+  "config": {"background": "transparent"},
   "data": {
-    "url": "data/data.csv"
+    "url": "https://raw.githubusercontent.com/ewon0035/FIT3179/refs/heads/data_visualisation_ii/03%20Median%20income%20and%20population%20by%20state/data/data.csv"
   },
   "params": [
     {
@@ -76,7 +77,7 @@
         "size": {
           "field": "Median Income",
           "type": "quantitative",
-          "scale": {"range": [50, 500]},
+          "scale": {"type": "sqrt", "range": [50, 500]},
           "legend": {"title": "Median Income"}
         },
         "color": {
@@ -108,7 +109,7 @@
         "color": {"value": "black"},
         "opacity": {
           "condition": {
-            "test": "indexof(['Sydney - City and Inner South', 'Melbourne - Inner', 'Brisbane - Inner City', 'Perth - Inner', 'Australian Capital Territory'], datum['Area']) >= 0",
+            "test": "indexof(['Sydney - City and Inner South', 'Melbourne - Inner', 'Brisbane - Inner City', 'Perth - Inner', 'Australian Capital Territory', 'Northern Territory - Outback', 'Queensland - Outback'], datum['Area']) >= 0",
             "value": 1
           },
           "value": 0

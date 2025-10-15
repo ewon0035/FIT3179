@@ -1,54 +1,112 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "title": "GNI Per Capita of the World",
+  "title": {
+    "text": "GNI Per Capita of the World"
+  },
   "width": 1000,
   "height": 600,
   "projection": {"type": "mercator"},
   "data": {
-    "url": "js/ne_110m_admin_0_countries.topojson",
+    "url": "https://raw.githubusercontent.com/ewon0035/FIT3179/refs/heads/data_visualisation_ii/01%20GNI%20per%20capita%20world/js/ne_110m_admin_0_countries.topojson",
     "format": {"type": "topojson", "feature": "ne_110m_admin_0_countries"}
   },
   "transform": [
-    {
-      "filter": "datum.properties.NAME !== 'Antarctica'"
-    },
+    {"filter": "datum.properties.NAME !== 'Antarctica'"},
     {
       "lookup": "properties.NAME",
       "from": {
-        "data": {"url": "data/data.csv"},
+        "data": {
+          "url": "https://raw.githubusercontent.com/ewon0035/FIT3179/refs/heads/data_visualisation_ii/01%20GNI%20per%20capita%20world/data/data.csv"
+        },
         "key": "Country Name",
         "fields": ["2024"]
       }
     },
+    {"calculate": "isValid(datum['2024']) ? datum['2024'] : 0", "as": "GNI Per Capita"}
+  ],
+  "layer": [
     {
-      "calculate": "isValid(datum['2024']) ? datum['2024'] : 0",
-      "as": "GNI Per Capita"
+      "mark": {"type": "geoshape", "stroke": "white", "strokeWidth": 0.5},
+      "encoding": {
+        "color": {
+          "condition": {
+            "test": "datum['GNI Per Capita'] > 0",
+            "field": "GNI Per Capita",
+            "type": "quantitative",
+            "scale": {"type": "linear", "domainMin": 1, "scheme": "blues"},
+            "title": "GNI Per Capita (USD)"
+          },
+          "value": "lightgray"
+        },
+        "tooltip": [
+          {"field": "properties.NAME", "type": "nominal", "title": "Country"},
+          {
+            "field": "GNI Per Capita",
+            "type": "quantitative",
+            "title": "GNI Per Capita (USD)",
+            "format": ","
+          }
+        ]
+      }
+    },
+
+    {
+      "data": {
+        "values": [
+          {
+           "text": "GNI per capita is the Gross National Income (GNI)\ndivided by the country's total population. It measures\nthe average income of a nation's residents, including\nincome from abroad, and serves as an indicator of\neconomic well-being."
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "top",
+        "fontSize": 15,
+        "color": "black",
+        "lineBreak": "\n"
+      },
+      "encoding": {
+        "x": {"value": -50},
+        "y": {"value": 515},
+        "text": {"field": "text"}
+      }
+    },
+    {
+      "mark": {"type": "rule", "stroke": "black", "strokeWidth": 1},
+      "encoding": {
+        "x": {"value": 1005},
+        "y": {"value": 380},
+        "x2": {"value": 900},
+        "y2": {"value": 500}
+      }
+    },
+
+    {
+      "data": {
+        "values": [
+          {
+            "text": "Australia has one of the highest GNI per capita,\ndue to strong commodity exports, particularly to China\nand Southeast Asia, combined with a high labor\nforce participation rate and strong labor productivity."
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "top",
+        "fontSize": 15,
+        "color": "black",
+        "lineBreak": "\n"
+      },
+      "encoding": {
+        "x": {"value": 1012},
+        "y": {"value": 350},
+        "text": {"field": "text"}
+      }
     }
   ],
-  "mark": {"type": "geoshape", "stroke": "white", "strokeWidth": 0.5},
-  "encoding": {
-    "color": {
-      "condition": {
-        "test": "datum['GNI Per Capita'] > 0",
-        "field": "GNI Per Capita",
-        "type": "quantitative",
-        "scale": {"type": "linear", "domainMin": 1, "scheme": "blues"},
-        "title": "GNI Per Capita (USD)"
-      },
-      "value": "lightgray"
-    },
-    "tooltip": [
-      {"field": "properties.NAME", "type": "nominal", "title": "Country"},
-      {
-        "field": "GNI Per Capita",
-        "type": "quantitative",
-        "title": "GNI Per Capita (USD)",
-        "format": ","
-      }
-    ]
-  },
   "config": {
-    "background": null,
-    "title": {"fontSize": 18, "fontWeight": "bold"}
+    "view": {"stroke": null},
+    "background": null
   }
 }

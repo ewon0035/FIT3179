@@ -1,16 +1,13 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
-    "text": "Metro vs Regional Median Income by State (2022)",
-    "anchor": "middle",
-    "fontSize": 16,
-    "offset": 20
+    "text": "Metro vs Regional Median Income by State (2022)"
   },
-  "description": "Horizontal diverging spine chart: metro vs regional median income",
-  "width": 400,
-  "height": 300,
+  "width": 800,
+  "height": 500,
+  "config": {"background": "transparent"},
   "data": {
-    "url": "data/data.csv"
+    "url": "https://raw.githubusercontent.com/ewon0035/FIT3179/refs/heads/data_visualisation_ii/08%20Median%20income%20in%20states%20by%20metro%20vs%20regional%20area/data/data.csv"
   },
   "transform": [
     {
@@ -51,8 +48,8 @@
               "Rest of SA", "Rest of WA", "Rest of Tas.", "Rest of NT"
             ],
             "range": [
-              "#A8D5E2", "#A8D5E2", "#A8D5E2", "#A8D5E2", "#A8D5E2", "#A8D5E2", "#A8D5E2",
-              "#FFB5A7", "#FFB5A7", "#FFB5A7", "#FFB5A7", "#FFB5A7", "#FFB5A7", "#FFB5A7"
+              "#b7b8b3", "#b7b8b3", "#b7b8b3", "#b7b8b3", "#b7b8b3", "#b7b8b3", "#b7b8b3",
+              "#d5c58a", "#d5c58a", "#d5c58a", "#d5c58a", "#d5c58a", "#d5c58a", "#d5c58a"
             ]
           },
           "legend": null
@@ -68,8 +65,8 @@
       "mark": {
         "type": "text",
         "align": "center",
-        "fontSize": 12,
-        "fontWeight": "bold",
+        "font": "Arial",
+        "fontSize": 15,
         "dy": -15
       },
       "encoding": {

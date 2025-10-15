@@ -1,10 +1,11 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": "Median Weekly Income Over Time by Australian State/Territory",
+  "config": {"background": "transparent"},
   "width": 900,
   "height": 500,
   "data": {
-    "url": "data/data.csv"
+    "url": "https://raw.githubusercontent.com/ewon0035/FIT3179/refs/heads/data_visualisation_ii/04%20Median%20income%20over%20time%20by%20state/data/data.csv"
   },
   "transform": [
     {
@@ -38,10 +39,7 @@
   ],
   "layer": [
     {
-      "mark": {
-        "type": "line",
-        "interpolate": "monotone"
-      },
+      "mark": {"type": "line", "interpolate": "monotone"},
       "encoding": {
         "x": {"field": "Date", "type": "temporal", "title": "Year", "axis": {"format": "%Y", "labelAngle": 0}},
         "y": {"field": "MedianIncomeNum", "type": "quantitative", "title": "Median Weekly Income (AUD)"},
@@ -98,6 +96,55 @@
           {"field": "Date", "type": "temporal", "title": "Year", "format": "%Y"},
           {"field": "MedianIncomeNum", "type": "quantitative", "title": "Median Income (AUD)"}
         ]
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "Date": "2006-01-01",
+            "MedianIncomeNum": 1550,
+            "text": "ACT has consistently had the highest\nmedian weekly income among all Australian states/territories."
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "center",
+        "baseline": "bottom",
+        "dx": -10,
+        "dy": -10,
+        "fontSize": 13,
+        "color": "#17becf",
+        "lineBreak": "\n"
+      },
+      "encoding": {
+        "x": {"field": "Date", "type": "temporal"},
+        "y": {"field": "MedianIncomeNum", "type": "quantitative"},
+        "text": {"field": "text"}
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "x": "2006-01-01",
+            "x2": "2011-01-01",
+            "y": 1520,
+            "y2": 1300
+          }
+        ]
+      },
+      "mark": {
+        "type": "rule",
+        "color": "#17becf",
+        "strokeWidth": 2
+      },
+      "encoding": {
+        "x": {"field": "x", "type": "temporal"},
+        "x2": {"field": "x2", "type": "temporal"},
+        "y": {"field": "y", "type": "quantitative"},
+        "y2": {"field": "y2", "type": "quantitative"}
       }
     }
   ]

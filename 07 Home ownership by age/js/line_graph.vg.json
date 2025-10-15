@@ -1,10 +1,11 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": "Australia Home Ownership By Age Group and Birth Cohort",
+  "config": {"background": "transparent"},
   "width": 1200,
   "height": 500,
   "data": {
-    "url": "data/data.csv"
+    "url": "https://raw.githubusercontent.com/ewon0035/FIT3179/refs/heads/data_visualisation_ii/07%20Home%20ownership%20by%20age/data/data.csv"
   },
   "transform": [
     {
@@ -56,7 +57,21 @@
         "color": {
           "field": "Birth cohort",
           "type": "nominal",
-          "title": "Birth cohort"
+          "title": "Birth cohort",
+          "scale": {
+            "range": [
+              "#5B8FF9",
+              "#FF9EC4",
+              "#9C89B8",
+              "#FFC75F",
+              "#00C49A",
+              "#FFB347",
+              "#7FB3D5",
+              "#C39BD3",
+              "#F8AFA6",
+              "#6FA8DC"
+            ]
+          }
         },
         "tooltip": [
           {"field": "age groups", "title": "Age group"},
@@ -88,7 +103,24 @@
         "x": {"field": "age groups", "type": "ordinal"},
         "y": {"field": "PercentNum", "type": "quantitative"},
         "text": {"field": "Birth cohort"},
-        "color": {"field": "Birth cohort", "type": "nominal"}
+        "color": {
+          "field": "Birth cohort",
+          "type": "nominal",
+          "scale": {
+            "range": [
+              "#5B8FF9",
+              "#FF9EC4",
+              "#9C89B8",
+              "#FFC75F",
+              "#00C49A",
+              "#FFB347",
+              "#7FB3D5",
+              "#C39BD3",
+              "#F8AFA6",
+              "#6FA8DC"
+            ]
+          }
+        }
       }
     }
   ]

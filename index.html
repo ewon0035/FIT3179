@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Vega-Lite Dashboard</title>
+
+  <!-- Import Vega, Vega-Lite, and Vega-Embed -->
+  <script src="https://cdn.jsdelivr.net/npm/vega@5.22.1"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.6.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.21.0"></script>
+
+  <!-- Optional CSS for layout -->
+  <link rel="stylesheet" type="text/css" href="css/styles.css" media="all">
+</head>
+
+<body>
+  <h1>Australian Income and Wealth Distribution</h1>
+  <div class="info-block">
+    <p><strong>Author:</strong> Eric Wong</p>
+    <p><strong>Date:</strong>12 October 2025</p>
+    <p><strong>Data Sources:</strong> https://data.worldbank.org/indicator/NY.GNP.PCAP.CD?view=map , https://www.abs.gov.au/statistics/labour/earnings-and-working-conditions/personal-income-australia/latest-release#data-downloads ,
+    https://www.abs.gov.au/statistics/labour/earnings-and-working-conditions/employee-earnings/latest-release#data-downloads , https://www.abs.gov.au/articles/new-census-insights-income-australia-using-administrative-data , 
+    https://www.abs.gov.au/statistics/labour/earnings-and-working-conditions/employee-earnings/latest-release#data-downloads</p>
+  </div>
+
+  <br>
+
+  <!-- Containers for each chart -->
+  <div class="chart-container" id="chart1"></div>
+  <div class="chart-container" id="chart2"></div>
+  <div class="chart-container" id="chart3"></div>
+  <div class="chart-container" id="chart4"></div>
+  <div class="chart-text-wrapper">
+  <div class="chart-container" id="chart5"></div>
+    <div class="chart-text">
+      <p>
+        The chart shows median income differences based on gender and industry. 
+        On average, males tend to earn higher median incomes across most industries, 
+        although the gap varies significantly by sector.<br><br>
+
+        The gap varies the most in the education/training, financial/insurance services, 
+        information media/telecommunications and professional, scientific and technical services, 
+        where males earn substantially more. These sectors traditionally have higher overall 
+        salaries, suggesting the gender pay gap may be more pronounced in high-earning industries.<br><br>
+
+        Interestingly, there are only two industries where females earn more than males: 
+        mining and administrative/support services. The mining sector anomaly is particularly 
+        notable given it's typically male dominated, which may reflect differences in specific 
+        roles or seniority levels held by women in this industry.<br><br>
+
+        Industries with the smallest gender pay gaps tend to be in healthcare and 
+        retail trade, suggesting more equitable compensation structures in these sectors.
+      </p>
+    </div>
+  </div>
+  <div class="chart-text-wrapper-left">
+    <div class="chart-text">
+      <p>
+        This chart shows the main sources of income by age group in Australia.
+        Younger adults rely heavily on wages and salaries, whereas older adults
+        increasingly depend on superannuation, investments, or government pensions.
+        <br><br>
+        The distribution highlights the lifecycle of income sources: early career
+        income is wage-dominated, mid-career sees a mix of wages and investments,
+        and retirement age is dominated by passive income streams. The transition
+        becomes particularly pronounced around age 65, which aligns with Australia's
+        traditional retirement age.<br><br>
+        Between 20-64, employment income is by far the most common source of income, with 
+        as high as 76.6% of Australians citing it as their main source of income between 
+        25-34 years old.
+        <br><br>
+        Notably, government pensions play a significant role in supporting older
+        Australians, suggesting that despite superannuation policies, many retirees
+        still depend on government support. For those under 25, there may also be
+        notable reliance on government benefits such as youth allowance or parental
+        financial support alongside entry-level wages.<br><br>
+      </p>
+    </div>
+    <div class="chart-container" id="chart6"></div>
+  </div>
+  <div class="chart-container" id="chart7"></div>
+  <div class="chart-text-wrapper">
+    <div class="chart-container" id="chart8"></div>
+      <div class="chart-text">
+        <p>
+          This visualisation presents a comparison of median household incomes between metropolitan and 
+          regional areas across different states/territories. The data reveals a consistent pattern across 
+          all juridictions: metropolitan areas have higher median incomes compared to regional areas.
+          <br><br>
+          The Northern Territory shows the most pronounced disparity, with metro areas earning substantially 
+          more than regional areas. New South Wales also displays a significant gap, reflecting Sydney's 
+          position as Australia's economic powerhouse.
+          <br><br>
+          Queensland and Western Australia show moderate differences, likely influenced by their 
+          resource-rich regional economies that provide relatively well-paid mining and agricultural jobs.
+          <br><br>
+          Interestingly, Tasmania, South Australia, and Victoria demonstrate smaller gaps between metro 
+          and regional incomes. Tasmania's relatively compressed income distribution may reflect its 
+          smaller scale and less dramatic urban-rural divide, while Victoria's pattern could indicate 
+          Melbourne's economic dominance balanced against prosperous regional centers. South Australia 
+          similarly shows a modest gap, suggesting Adelaide's metro economy doesn't vastly outpace regional 
+          areas in the same way larger capital cities do.
+        </p>
+      </div>
+    </div>
+
+  <script type="text/javascript">
+    // Array of your JSON spec file paths
+    const chartFiles = [
+      "01 GNI per capita world/js/choropleth_map.vg.json",
+      "02 Median income by state/js/choropleth_map.vg.json",
+      "03 Median income and population by state/js/bubble_chart.vg.json",
+      "04 Median income over time by state/js/line_graph.vg.json",
+      "05 Median income based on gender, industry/js/paired_column_chart.vg.json",
+      "06 Main source of income by age/js/stacked_column_chart.vg.json",
+      "07 Home ownership by age/js/line_graph.vg.json",
+      "08 Median income in states by metro vs regional area/js/spine_plot.vg.json"
+    ];
+
+    // Loop through each chart and embed it
+    chartFiles.forEach((file, i) => {
+      const chartId = `#chart${i + 1}`;
+      vegaEmbed(chartId, file, {
+        actions: false,
+        config: {
+          background: null,
+          title: {
+            fontSize: 20,
+            anchor: "middle",
+            font: "sans-serif"
+          },
+          axis: {
+            labelFontSize: 12,     // tick labels
+            titleFontSize: 15,     // axis title
+            labelFont: "sans-serif",
+            titleFont: "sans-serif",
+            labelColor: "#333",
+            titleColor: "#333"
+          },
+
+          // Legend text
+          legend: {
+            labelFontSize: 12,
+            titleFontSize: 15,
+            labelFont: "sans-serif",
+            titleFont: "sans-serif",
+            labelColor: "#333",
+            titleColor: "#333"
+          },
+
+          // Tooltip text
+          text: {
+            fontSize: 16
+          }
+        }
+      })
+    });
+  </script>
+
+</body>
+</html>

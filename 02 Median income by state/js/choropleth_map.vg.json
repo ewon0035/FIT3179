@@ -7,14 +7,14 @@
   "layer": [
     {
       "data": {
-        "url": "js/australia.topojson",
+        "url": "https://raw.githubusercontent.com/ewon0035/FIT3179/data_visualisation_ii/02%20Median%20income%20by%20state/js/australia.topojson",
         "format": {"type": "topojson", "feature": "STE_2021_AUST_GDA2020"}
       },
       "transform": [
         {
           "lookup": "properties.STE_NAME21",
           "from": {
-            "data": {"url": "data/data.csv"},
+            "data": {"url": "https://raw.githubusercontent.com/ewon0035/FIT3179/refs/heads/data_visualisation_ii/02%20Median%20income%20by%20state/data/data.csv"},
             "key": "State",
             "fields": ["Median Income"]
           }
@@ -37,6 +37,101 @@
           {"field": "Median Income", "title": "Median Income (AUD)"}
         ]
       }
+    },
+    {
+      "data": {
+        "values": [{}]
+      },
+      "mark": {"type": "rule", "stroke": "black", "strokeWidth": 1},
+      "encoding": {
+        "x": {"value": 740},
+        "y": {"value": 550},
+        "x2": {"value": 795},
+        "y2": {"value": 510}
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "text": "ACT has the highest median income\nin Australia of $72,115 per annum."
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "top",
+        "fontSize": 15,
+        "color": "black",
+        "lineBreak": "\n"
+      },
+      "encoding": {
+        "x": {"value": 800},
+        "y": {"value": 500},
+        "text": {"field": "text"}
+      }
+    },
+    {
+      "data": {
+        "values": [{}]
+      },
+      "mark": {"type": "rule", "stroke": "black", "strokeWidth": 1},
+      "encoding": {
+        "x": {"value": 655},
+        "y": {"value": 700},
+        "x2": {"value": 580},
+        "y2": {"value": 720}
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "text": "Tasmania has the lowest median income\nin Australia of $50,645 per annum."
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "top",
+        "fontSize": 15,
+        "color": "black",
+        "lineBreak": "\n"
+      },
+      "encoding": {
+        "x": {"value": 300},
+        "y": {"value": 705},
+        "text": {"field": "text"}
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "text": "Focusing more specifically on Australia:\n\nACT has the highest median income per annum\nin Australia, with Tasmania having the lowest.\nThe difference between the state/territory with\nthe highest median income and one with lowest\nis roughly $20,000 per annum, which can be\nconsidered a large difference as it is roughly\n40% of the median income of Tasmanians.\n\nInterestingly, WA and NT have higher median\nincome than populous states such as NSW and VIC\n(home to Sydney and Melbourne), which could be\ndue to the large amount of mining operations in\nthose states and the mining industry traditionally\nearning more. \n\nACT's high median income reflects\nits concentration of government and public service\nemployment, which typically offers higher salaries.\n\nThe eastern seaboard states (NSW, VIC, QLD)\nshow relatively similar median incomes, clustering\naround $55,000–$58,000, suggesting comparable\neconomic conditions despite differences in\nindustry composition and population density."
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "top",
+        "fontSize": 15,
+        "color": "black",
+        "lineBreak": "\n",
+        "lineHeight": 20
+      },
+      "encoding": {
+        "x": {"value": -345},
+        "y": {"value": 70},
+        "text": {"field": "text"}
+      }
     }
-  ]
+  ],
+  "config": {
+    "view": {"stroke": null},
+    "background": null
+  }
 }

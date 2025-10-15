@@ -1,0 +1,131 @@
+/* ==============================
+   Global layout and body
+   ============================== */
+body {
+  font-family: sans-serif;
+  margin: 20px;
+  background-color: #ffead7;
+  text-align: center;
+}
+
+/* ==============================
+   Page title
+   ============================== */
+h1 {
+  font-size: 48px;
+  font-family: "Georgia", serif;
+  margin-bottom: 20px;
+  color: #000000;
+  text-align: center;
+}
+
+/* ==============================
+   Info block under title
+   ============================== */
+.info-block p {
+  margin: 2px 0;
+}
+
+/* ==============================
+   General chart containers
+   ============================== */
+.chart-container {
+  display: flex;
+  justify-content: center;   /* center horizontally */
+  align-items: center;       /* center vertically */
+  width: 100%;
+  margin-bottom: 40px;
+}
+
+.vega-embed {
+  display: block;
+  width: 100%;
+}
+
+/* ==============================
+   Special layout for Charts with texts
+   ============================== */
+
+/* Grid wrapper keeps chart + text side by side tightly */
+.chart-text-wrapper {
+  display: grid;
+  grid-template-columns: auto minmax(220px, 1fr); /* chart column fits its content */
+  align-items: start; 
+  gap: 200px;               /* space between chart and text */
+  max-width: 1500px;       /* centers the pair and limits how wide they stretch */
+  margin: 0 auto 40px;     /* center horizontally with bottom spacing */
+  padding: 0 12px;
+  box-sizing: border-box;
+}
+
+/* Chart inside wrapper — intrinsic width, no internal centering */
+.chart-text-wrapper .chart-container {
+  display: block;
+  width: auto;
+  min-width: 350px;        /* prevents the chart from collapsing */
+  max-width: 800px;
+  margin: 0;
+  justify-content: unset;
+  align-items: unset;
+}
+
+/* Ensure Vega chart fills container properly */
+.chart-text-wrapper .vega-embed,
+.chart-text-wrapper .chart-container > .vega-embed {
+  display: block;
+  width: 100% !important;
+  height: auto !important;
+}
+
+/* Text block beside chart */
+.chart-text {
+  text-align: left;
+  padding: 12px 14px;
+  font-family: sans-serif;
+  line-height: 1.5;
+  font-size: 15px;
+  color: #222;
+  max-width: 440px;
+}
+
+/* Grid wrapper for charts with text on the left */
+.chart-text-wrapper-left {
+  display: grid;
+  grid-template-columns: 440px auto;
+  align-items: start;
+  gap: 70px;
+  max-width: 1500px;
+  margin: 0 auto 40px;
+  padding: 0 12px;
+  box-sizing: border-box;
+}
+
+/* Chart inside wrapper — intrinsic width, no internal centering */
+.chart-text-wrapper-left .chart-container {
+  display: block;
+  width: auto;
+  min-width: 350px;
+  max-width: 800px;
+  margin: 0;
+  justify-content: unset;
+  align-items: unset;
+}
+
+/* Ensure Vega chart fills container properly */
+.chart-text-wrapper-left .vega-embed,
+.chart-text-wrapper-left .chart-container > .vega-embed {
+  display: block;
+  width: 100% !important;
+  height: auto !important;
+}
+
+/* Text block beside chart */
+.chart-text-wrapper-left .chart-text {
+  text-align: left;
+  padding: 12px 14px;
+  font-family: sans-serif;
+  line-height: 1.5;
+  font-size: 15px;
+  color: #222;
+  width: 440px;
+}
