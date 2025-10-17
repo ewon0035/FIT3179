@@ -2,7 +2,7 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": "Australia Home Ownership By Age Group and Birth Cohort",
   "config": {"background": "transparent"},
-  "width": 1200,
+  "width": 1300,
   "height": 500,
   "data": {
     "url": "https://raw.githubusercontent.com/ewon0035/FIT3179/refs/heads/data_visualisation_ii/07%20Home%20ownership%20by%20age/data/data.csv"
@@ -23,21 +23,13 @@
       ],
       "as": ["Birth cohort", "Percent"]
     },
-    {
-      "calculate": "replace(datum.Percent, '%', '')",
-      "as": "PercentValue"
-    },
-    {
-      "calculate": "toNumber(datum.PercentValue)",
-      "as": "PercentNum"
-    },
+    {"calculate": "replace(datum.Percent, '%', '')", "as": "PercentValue"},
+    {"calculate": "toNumber(datum.PercentValue)", "as": "PercentNum"},
     {
       "calculate": "indexof(['25-29','30-34','35-39','40-44','45-49','50-54','55-59','60-64','65-69','70-74'], datum['age groups'])",
       "as": "AgeOrder"
     },
-    {
-      "filter": "isValid(datum.PercentNum)"
-    }
+    {"filter": "isValid(datum.PercentNum)"}
   ],
   "layer": [
     {
@@ -49,11 +41,7 @@
           "title": "Age group",
           "axis": {"labelAngle": 0}
         },
-        "y": {
-          "field": "PercentNum",
-          "type": "quantitative",
-          "title": "Percent"
-        },
+        "y": {"field": "PercentNum", "type": "quantitative", "title": "Percent"},
         "color": {
           "field": "Birth cohort",
           "type": "nominal",
@@ -82,23 +70,10 @@
     },
     {
       "transform": [
-        {
-          "joinaggregate": [
-            {"op": "max", "field": "AgeOrder", "as": "maxAge"}
-          ],
-          "groupby": ["Birth cohort"]
-        },
-        {
-          "filter": "datum.AgeOrder === datum.maxAge"
-        }
+        {"joinaggregate": [{"op": "max", "field": "AgeOrder", "as": "maxAge"}], "groupby": ["Birth cohort"]},
+        {"filter": "datum.AgeOrder === datum.maxAge"}
       ],
-      "mark": {
-        "type": "text",
-        "align": "left",
-        "dx": -15,
-        "dy": 15,
-        "fontSize": 11
-      },
+      "mark": {"type": "text", "align": "left", "dx": -15, "dy": 15, "fontSize": 11},
       "encoding": {
         "x": {"field": "age groups", "type": "ordinal"},
         "y": {"field": "PercentNum", "type": "quantitative"},
@@ -121,6 +96,141 @@
             ]
           }
         }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "age groups": "60-64",
+            "PercentNum": 15,
+            "text": "Home ownership begins to plateau\nfor people from this age onwards with minimal increases or\ndecreases to homeownership percentages."
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "center",
+        "baseline": "bottom",
+        "dx": 0,
+        "dy": -10,
+        "fontSize": 13,
+        "color": "black",
+        "lineBreak": "\n"
+      },
+      "encoding": {
+        "x": {"field": "age groups", "type": "ordinal"},
+        "y": {"field": "PercentNum", "type": "quantitative"},
+        "text": {"field": "text"}
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "x": "45-49",
+            "x2": "60-64",
+            "y": 60,
+            "y2": 20
+          }
+        ]
+      },
+      "mark": {"type": "rule", "color": "black", "strokeWidth": 1},
+      "encoding": {
+        "x": {"field": "x", "type": "ordinal"},
+        "x2": {"field": "x2", "type": "ordinal"},
+        "y": {"field": "y", "type": "quantitative"},
+        "y2": {"field": "y2", "type": "quantitative"}
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "age groups": "30-34",
+            "PercentNum": 15,
+            "text": "There is an ~18% gap between the 1947-1951 cohort and\n1992-1996 cohort at age 25-29. This emphasises the declining\naccess to home ownership for younger generations."
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "center",
+        "baseline": "bottom",
+        "dx": 0,
+        "dy": -10,
+        "fontSize": 13,
+        "color": "black",
+        "lineBreak": "\n"
+      },
+      "encoding": {
+        "x": {"field": "age groups", "type": "ordinal"},
+        "y": {"field": "PercentNum", "type": "quantitative"},
+        "text": {"field": "text"}
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "x": "25-29",
+            "x2": "30-34",
+            "y": 32,
+            "y2": 20
+          }
+        ]
+      },
+      "mark": {"type": "rule", "color": "black", "strokeWidth": 1},
+      "encoding": {
+        "x": {"field": "x", "type": "ordinal"},
+        "x2": {"field": "x2", "type": "ordinal"},
+        "y": {"field": "y", "type": "quantitative"},
+        "y2": {"field": "y2", "type": "quantitative"}
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "age groups": "45-49",
+            "PercentNum": 15,
+            "text": "All the cohorts exhibit steepest home ownership percentage\nincreases between their late 20s to late 30s. After age 40,\nownership rates continue to rise but at a much slower pace."
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "center",
+        "baseline": "bottom",
+        "dx": 0,
+        "dy": -10,
+        "fontSize": 13,
+        "color": "black",
+        "lineBreak": "\n"
+      },
+      "encoding": {
+        "x": {"field": "age groups", "type": "ordinal"},
+        "y": {"field": "PercentNum", "type": "quantitative"},
+        "text": {"field": "text"}
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "x": "30-34",
+            "x2": "45-49",
+            "y": 43,
+            "y2": 20
+          }
+        ]
+      },
+      "mark": {"type": "rule", "color": "black", "strokeWidth": 1},
+      "encoding": {
+        "x": {"field": "x", "type": "ordinal"},
+        "x2": {"field": "x2", "type": "ordinal"},
+        "y": {"field": "y", "type": "quantitative"},
+        "y2": {"field": "y2", "type": "quantitative"}
       }
     }
   ]

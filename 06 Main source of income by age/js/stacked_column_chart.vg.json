@@ -96,6 +96,6 @@
   "config": {
     "background": "transparent",
     "view": {"stroke": "transparent"},
-    "axis": {"grid": true}
+    "axis": {"grid": false}
   }
 }

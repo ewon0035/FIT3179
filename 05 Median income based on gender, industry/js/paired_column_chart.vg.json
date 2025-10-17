@@ -54,7 +54,7 @@
       "cornerRadiusTopRight": 3
     },
     "axis": {
-      "grid": true
+      "grid": false
     }
   }
 }

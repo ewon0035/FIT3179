@@ -26,6 +26,15 @@ h1 {
   margin: 2px 0;
 }
 
+.info-block a {
+  color: #8e8a8a;
+  text-decoration: none;
+}
+
+.info-block a:hover {
+  text-decoration: underline;
+}
+
 /* ==============================
    General chart containers
    ============================== */

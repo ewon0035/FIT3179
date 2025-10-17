@@ -1,6 +1,6 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "width": 800,
+  "width": 1150,
   "height": 600,
   "title": "Median Income by Statistical Area Level 4 (2021-2022)",
   "config": {"background": "transparent"},
@@ -59,14 +59,14 @@
       "field": "Earners",
       "type": "quantitative",
       "title": "Number of Earners",
-      "axis": {"tickCount": 7},
+      "axis": {"tickCount": 7, "grid": false},
       "scale": {"type": "log"}
     },
     "y": {
       "field": "Total Income",
       "type": "quantitative",
       "title": "Total Income (AUD)",
-      "axis": {"tickCount": 6},
+      "axis": {"tickCount": 6, "grid": false},
       "scale": {"type": "log"}
     }
   },
@@ -109,7 +109,7 @@
         "color": {"value": "black"},
         "opacity": {
           "condition": {
-            "test": "indexof(['Sydney - City and Inner South', 'Melbourne - Inner', 'Brisbane - Inner City', 'Perth - Inner', 'Australian Capital Territory', 'Northern Territory - Outback', 'Queensland - Outback'], datum['Area']) >= 0",
+            "test": "indexof(['Darwin', 'Sydney - City and Inner South', 'Melbourne - Inner', 'Brisbane - Inner City', 'Perth - Inner', 'Australian Capital Territory', 'Northern Territory - Outback', 'Queensland - Outback', 'Melbourne - South East'], datum['Area']) >= 0",
             "value": 1
           },
           "value": 0

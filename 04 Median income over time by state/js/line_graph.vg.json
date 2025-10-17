@@ -2,7 +2,7 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": "Median Weekly Income Over Time by Australian State/Territory",
   "config": {"background": "transparent"},
-  "width": 900,
+  "width": 1200,
   "height": 500,
   "data": {
     "url": "https://raw.githubusercontent.com/ewon0035/FIT3179/refs/heads/data_visualisation_ii/04%20Median%20income%20over%20time%20by%20state/data/data.csv"
@@ -41,8 +41,8 @@
     {
       "mark": {"type": "line", "interpolate": "monotone"},
       "encoding": {
-        "x": {"field": "Date", "type": "temporal", "title": "Year", "axis": {"format": "%Y", "labelAngle": 0}},
-        "y": {"field": "MedianIncomeNum", "type": "quantitative", "title": "Median Weekly Income (AUD)"},
+        "x": {"field": "Date", "type": "temporal", "title": "Year", "axis": {"format": "%Y", "labelAngle": 0, "grid": false}},
+        "y": {"field": "MedianIncomeNum", "type": "quantitative", "title": "Median Weekly Income (AUD)", "axis": {"grid": false}},
         "color": {
           "field": "State",
           "type": "nominal",
@@ -104,7 +104,7 @@
           {
             "Date": "2006-01-01",
             "MedianIncomeNum": 1550,
-            "text": "ACT has consistently had the highest\nmedian weekly income among all Australian states/territories."
+            "text": "ACT has consistently had the highest median\nweekly income among all Australian states/territories."
           }
         ]
       },
@@ -112,10 +112,10 @@
         "type": "text",
         "align": "center",
         "baseline": "bottom",
-        "dx": -10,
+        "dx": -50,
         "dy": -10,
         "fontSize": 13,
-        "color": "#17becf",
+        "color": "black",
         "lineBreak": "\n"
       },
       "encoding": {
@@ -137,8 +137,57 @@
       },
       "mark": {
         "type": "rule",
-        "color": "#17becf",
-        "strokeWidth": 2
+        "color": "black",
+        "strokeWidth": 1
+      },
+      "encoding": {
+        "x": {"field": "x", "type": "temporal"},
+        "x2": {"field": "x2", "type": "temporal"},
+        "y": {"field": "y", "type": "quantitative"},
+        "y2": {"field": "y2", "type": "quantitative"}
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "Date": "2020-01-01",
+            "MedianIncomeNum": 750,
+            "text": "Historically, Tasmania has the lowest median\nweekly income among all Australian states/territories."
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "center",
+        "baseline": "bottom",
+        "dx": -50,
+        "dy": -10,
+        "fontSize": 13,
+        "color": "black",
+        "lineBreak": "\n"
+      },
+      "encoding": {
+        "x": {"field": "Date", "type": "temporal"},
+        "y": {"field": "MedianIncomeNum", "type": "quantitative"},
+        "text": {"field": "text"}
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "x": "2015-01-01",
+            "x2": "2019-01-01",
+            "y": 1050,
+            "y2": 850
+          }
+        ]
+      },
+      "mark": {
+        "type": "rule",
+        "color": "black",
+        "strokeWidth": 1
       },
       "encoding": {
         "x": {"field": "x", "type": "temporal"},
